@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signInDefaultValues, signInFormSchema } from "@/schemas/signin-form";
+import { signUpDefaultValues, signUpFormSchema } from "@/schemas/signup-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
@@ -18,15 +18,15 @@ import { useForm } from "react-hook-form";
 import { FaSignInAlt } from "react-icons/fa";
 import { z } from "zod";
 
-export function SignInForm() {
+export function SignUpForm() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const form = useForm<z.infer<typeof signInFormSchema>>({
-    resolver: zodResolver(signInFormSchema),
-    defaultValues: signInDefaultValues,
+  const form = useForm<z.infer<typeof signUpFormSchema>>({
+    resolver: zodResolver(signUpFormSchema),
+    defaultValues: signUpDefaultValues,
   });
 
-  const onSubmit = (values: z.infer<typeof signInFormSchema>) => {
+  const onSubmit = (values: z.infer<typeof signUpFormSchema>) => {
     console.log(values);
   };
 
@@ -34,6 +34,19 @@ export function SignInForm() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xl">Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="John Doe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -81,7 +94,7 @@ export function SignInForm() {
           />
           <Button className="w-full">
             <FaSignInAlt className="mr-2" />
-            Sign In
+            Sign Up
           </Button>
         </form>
       </Form>

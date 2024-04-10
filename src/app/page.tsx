@@ -2,12 +2,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import heroImage from "../assets/img/nike-training-club-app-home-workouts.webp";
-import statsImage from "../assets/svg/Fitness stats-bro.svg";
+import statsImage from "@/assets/svg/Fitness stats-bro.svg";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,

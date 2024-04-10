@@ -9,3 +9,8 @@ export const signUpFormSchema = z.object({
   email: z.string().email(),
   password: passwordSchema,
 });
+export const signUpDefaultValues = {
+  username: "",
+  email: "",
+  password: "",
+};
