@@ -16,7 +16,7 @@ export default function SignInPage() {
   return (
     <>
       <main className="min-h-screen flex items-center justify-center">
-        <section>
+        <section className="w-full md:w-auto px-4">
           <Card className="md:min-w-[500px] mb-2">
             <CardHeader className="text-2xl">
               <CardTitle className="flex items-center gap-2">
@@ -28,7 +28,7 @@ export default function SignInPage() {
               <SignInForm />
             </CardContent>
           </Card>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <span>Don&apos;t have an account ?</span>
             <Button variant="outline" asChild>
               <Link href={"/auth/signup"}>

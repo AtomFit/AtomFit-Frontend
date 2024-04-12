@@ -11,40 +11,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import {
-  SiFastapi,
-  SiPostgresql,
-  SiTailwindcss,
-  SiTypescript,
-} from "react-icons/si";
-import { FaGithub, FaReact } from "react-icons/fa";
-import { TbBrandNextjs } from "react-icons/tb";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
-  const size = 32;
   return (
     <>
+      <header className="flex justify-between container items-center py-2 px-4 z-50">
+        <div className="flex items-center">
+          <Image src="/logo.png" width={100} height={100} alt="Logo" />
+          <Badge className="hidden md:block text-4xl">Atom Fit</Badge>
+        </div>
+        <div className="space-x-2 hidden sm:block">
+          <Button
+            variant="secondary"
+            size="lg"
+            className="hidden sm:inline-flex sm:text-lg"
+            asChild
+          >
+            <Link href={"/auth/signin"}>Sign In</Link>
+          </Button>
+          <Button size="lg" className="sm:text-lg" asChild>
+            <Link href={"/auth/signup"}>Get Started</Link>
+          </Button>
+        </div>
+      </header>
       <main className="min-h-screen relative">
-        <header className="flex justify-between container items-center py-2 px-4 z-50">
-          <div className="flex items-center">
-            <Image src="/logo.png" width={100} height={100} alt="Logo" />
-            <Badge className="hidden md:block text-4xl">Atom Fit</Badge>
-          </div>
-          <div className="space-x-2">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="hidden sm:inline-flex sm:text-lg"
-              asChild
-            >
-              <Link href={"/auth/signin"}>Sign In</Link>
-            </Button>
-            <Button size="lg" className="sm:text-lg" asChild>
-              <Link href={"/auth/signup"}>Get Started</Link>
-            </Button>
-          </div>
-        </header>
-
         <section className="container text-xl sm:text-2xl pt-16 flex items-center">
           <Card className="flex-1">
             <CardHeader>
@@ -69,42 +60,20 @@ export default function Home() {
           <Image
             src={statsImage}
             alt="Static Image"
+            priority
             className="hidden flex-1 md:block md:w-[50%] pointer-events-none"
           />
         </section>
       </main>
-      <footer className="py-6">
-        <ul className="flex flex-wrap justify-center gap-8">
-          <li className="flex items-center gap-2">
-            <SiTailwindcss size={size} />
-            <p className="text-sm font-normal">Tailwind CSS</p>
-          </li>
-          <li className="flex items-center gap-2">
-            <FaReact size={size} />
-            <p className="text-sm font-normal">React</p>
-          </li>
-          <li className="flex items-center gap-2">
-            <SiTypescript size={size} />
-            <p className="text-sm font-normal">TypeScript</p>
-          </li>
-          <li className="flex items-center gap-2">
-            <TbBrandNextjs size={size} />
-            <p className="text-sm font-normal">Next JS</p>
-          </li>
-          <li className="flex items-center gap-2">
-            <SiFastapi size={size} />
-            <p className="text-sm font-normal">FastAPI</p>
-          </li>
-          <li className="flex items-center gap-2">
-            <SiPostgresql size={size} />
-            <p className="text-sm font-normal">PostgreSQL</p>
-          </li>
-          <li className="flex items-center gap-2">
-            <FaGithub size={size} />
-            <p className="text-sm font-normal">GitHub</p>
-          </li>
-        </ul>
-      </footer>
+      <section className="absolute flex flex-col gap-2 w-full px-4 bottom-2 sm:hidden">
+        <Button size="lg" className="text-2xl" asChild>
+          <Link href={"/auth/signup"}>Get Started</Link>
+        </Button>
+        <Button variant="secondary" size="lg" className="text-2xl" asChild>
+          <Link href={"/auth/signin"}>Sign In</Link>
+        </Button>
+      </section>
+      <Footer />
     </>
   );
 }

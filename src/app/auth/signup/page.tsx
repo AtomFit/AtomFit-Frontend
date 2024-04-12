@@ -15,9 +15,9 @@ import Link from "next/link";
 export default function SignUpPage() {
   return (
     <>
-      <main className="min-h-screen flex items-center justify-center gap-2 px-2">
+      <main className="min-h-screen flex items-center justify-center gap-2 p-2">
         <section>
-          <Card className="md:min-w-[500px] mb-2">
+          <Card className="md:min-w-[500px] mb-2 overflow-hidden">
             <CardHeader className="text-2xl">
               <CardTitle className="flex items-center gap-2">
                 <FaSignInAlt /> Sign Up
