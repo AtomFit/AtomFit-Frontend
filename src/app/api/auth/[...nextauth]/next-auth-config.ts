@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export default NextAuth({
+export const authOption: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -11,7 +11,7 @@ export default NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Email", type: "email", placeholder: "jsmith" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
@@ -27,16 +27,16 @@ export default NextAuth({
           headers: { "Content-Type": "application/json" },
         });
         const user = await res.json();
-
-        // If no error and we have user data, return it
         if (res.ok && user) {
           return user;
         }
-        // Return null if user data could not be retrieved
         return null;
       },
     }),
   ],
+  pages: {
+    signIn: "auth/signin",
+  },
   callbacks: {
     async jwt({ token, user }) {
       return { ...token, ...user };
@@ -46,4 +46,4 @@ export default NextAuth({
       return session;
     },
   },
-});
+};

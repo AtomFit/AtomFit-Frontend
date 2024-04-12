@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { signUpDefaultValues, signUpFormSchema } from "@/schemas/signup-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
+import { ReactEventHandler, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   FaArrowLeft,
@@ -58,6 +58,11 @@ export function SignUpForm() {
   const delta = currentStep - previousStep;
   type FieldName = keyof z.infer<typeof signUpFormSchema>;
 
+  const onSubmit = (values: z.infer<typeof signUpFormSchema>) => {
+    console.log(values);
+    // form.reset();
+  };
+
   const next = async () => {
     const fields = steps[currentStep].fields;
     const output = await form.trigger(fields as FieldName[], {
@@ -68,6 +73,8 @@ export function SignUpForm() {
       setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
     }
+    if (currentStep !== steps.length - 1) return;
+    form.handleSubmit(onSubmit)();
   };
 
   const prev = () => {
@@ -84,15 +91,17 @@ export function SignUpForm() {
     defaultValues: signUpDefaultValues,
   });
 
-  const onSubmit = (values: z.infer<typeof signUpFormSchema>) => {
-    console.log(values);
-    form.reset();
-  };
   return (
     <>
       <Progress value={(currentStep + 1) * 33.33} className="mb-2" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            next();
+          }}
+          className="space-y-2"
+        >
           {currentStep === 0 && (
             <motion.div
               className="space-y-2"
@@ -371,6 +380,9 @@ export function SignUpForm() {
                           min={1}
                           max={300}
                           {...field}
+                          onChange={(e) =>
+                            form.setValue("height", parseInt(e.target.value))
+                          }
                         />
                         <Button
                           variant="ghost"
@@ -403,6 +415,9 @@ export function SignUpForm() {
                           min={1}
                           max={300}
                           {...field}
+                          onChange={(e) =>
+                            form.setValue("weight", parseInt(e.target.value))
+                          }
                         />
                         <Button
                           variant="ghost"
@@ -435,6 +450,12 @@ export function SignUpForm() {
                           min={1}
                           max={300}
                           {...field}
+                          onChange={(e) =>
+                            form.setValue(
+                              "goal_weight",
+                              parseInt(e.target.value)
+                            )
+                          }
                         />
                         <Button
                           variant="ghost"

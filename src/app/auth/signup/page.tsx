@@ -40,7 +40,7 @@ export default function SignUpPage() {
         <Image
           src={img}
           alt="Image"
-          className="hidden lg:block lg:w-[50%] pointer-events-none"
+          className="hidden lg:block lg:w-[45%] pointer-events-none"
           priority
         />
       </main>
