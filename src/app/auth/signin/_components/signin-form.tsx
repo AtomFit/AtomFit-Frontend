@@ -1,5 +1,7 @@
 "use client";
 
+import { register } from "@/app/api/auth/register";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,13 +14,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { signInDefaultValues, signInFormSchema } from "@/schemas/signin-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import {
+  ExclamationTriangleIcon,
+  EyeNoneIcon,
+  EyeOpenIcon,
+  ReloadIcon,
+} from "@radix-ui/react-icons";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSignInAlt } from "react-icons/fa";
 import { z } from "zod";
 
 export function SignInForm() {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -26,14 +36,36 @@ export function SignInForm() {
     defaultValues: signInDefaultValues,
   });
 
-  const onSubmit = (values: z.infer<typeof signInFormSchema>) => {
+  const onSubmit = async (values: z.infer<typeof signInFormSchema>) => {
+    // console.log(values);
+    // const result = await signIn("credentials", {
+    //   email: values.email,
+    //   password: values.password,
+    //   redirect: true,
+    //   callbackUrl: "/",
+    // });
     console.log(values);
+    setIsLoading(true);
+    const data = await register();
+    setIsLoading(false);
+
+    if (data?.error) {
+      setError(data.error);
+      return setTimeout(() => setError(null), 10000);
+    }
   };
 
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+          {error && (
+            <Alert>
+              <AlertDescription className="text-destructive">
+                {error}
+              </AlertDescription>
+            </Alert>
+          )}
           <FormField
             control={form.control}
             name="email"
@@ -79,8 +111,12 @@ export function SignInForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full">
-            <FaSignInAlt className="mr-2" />
+          <Button className="w-full text-xl font-semibold" disabled={isLoading}>
+            {isLoading ? (
+              <ReloadIcon className="mr-2 size-6 animate-spin" />
+            ) : (
+              <FaSignInAlt className="mr-2" />
+            )}
             Sign In
           </Button>
         </form>

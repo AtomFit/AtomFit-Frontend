@@ -21,21 +21,26 @@ export const authOption: NextAuthOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch("/your/endpoint", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
-        const user = await res.json();
-        if (res.ok && user) {
+        // const res = await fetch("/your/endpoint", {
+        //   method: "POST",
+        //   body: JSON.stringify(credentials),
+        //   headers: { "Content-Type": "application/json" },
+        // });
+        // const user = await res.json();
+        const user = { id: "1", username: "Joe Doe", email: "test@gmail.com" };
+
+        if (user) {
           return user;
         }
         return null;
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   pages: {
-    signIn: "auth/signin",
+    signIn: "/auth/signin",
   },
   callbacks: {
     async jwt({ token, user }) {

@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { signUpDefaultValues, signUpFormSchema } from "@/schemas/signup-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { ReactEventHandler, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   FaArrowLeft,
@@ -30,14 +30,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
 import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
 
@@ -50,7 +43,7 @@ export function SignUpForm() {
       fields: ["goal"],
     },
     {
-      fields: ["gender", "birthday", "height", "weight", "goal_weight"],
+      fields: ["is_male", "age", "height", "weight", "goal_weight"],
     },
   ];
   const [previousStep, setPreviousStep] = useState(0);
@@ -59,7 +52,15 @@ export function SignUpForm() {
   type FieldName = keyof z.infer<typeof signUpFormSchema>;
 
   const onSubmit = (values: z.infer<typeof signUpFormSchema>) => {
-    console.log(values);
+    const body = {
+      ...values,
+      age: parseInt(values.age),
+      height: parseInt(values.height),
+      weight: parseFloat(values.weight),
+      goal_weight: parseFloat(values.goal_weight),
+      is_male: values.is_male === "male" ? true : false,
+    };
+    console.log(body);
     // form.reset();
   };
 
@@ -117,7 +118,7 @@ export function SignUpForm() {
                   <FormItem>
                     <FormLabel className="text-xl">Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Doe" {...field} />
+                      <Input type="text" placeholder="John Doe" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -236,22 +237,6 @@ export function SignUpForm() {
                           <FormLabel className="flex items-center text-xl cursor-pointer w-full">
                             <Card className="hover:bg-secondary transition-all w-full">
                               <CardHeader>
-                                <CardTitle>Gain Weight</CardTitle>
-                                <CardDescription>
-                                  Lorem ipsum dolor sit, amet consectetur
-                                </CardDescription>
-                              </CardHeader>
-                            </Card>
-                          </FormLabel>
-                        </FormItem>
-
-                        <FormItem className="flex items-center space-x-1 space-y-0 relative">
-                          <FormControl className="absolute inset-0">
-                            <RadioGroupItem value="muscle" />
-                          </FormControl>
-                          <FormLabel className="flex items-center text-xl cursor-pointer w-full">
-                            <Card className="hover:bg-secondary transition-all w-full">
-                              <CardHeader>
                                 <CardTitle>Gain Muscle</CardTitle>
                                 <CardDescription>
                                   Lorem ipsum dolor sit, amet consectetur
@@ -279,7 +264,7 @@ export function SignUpForm() {
               {/* gender */}
               <FormField
                 control={form.control}
-                name="gender"
+                name="is_male"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-xl">Gender</FormLabel>
@@ -297,6 +282,7 @@ export function SignUpForm() {
                             <FaMale /> Male
                           </FormLabel>
                         </FormItem>
+
                         <FormItem className="flex items-center space-x-1 space-y-0">
                           <FormControl>
                             <RadioGroupItem value="female" />
@@ -311,58 +297,36 @@ export function SignUpForm() {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
-                name="birthday"
+                name="age"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel className="text-xl">Date of birth</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-[240px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto size-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent
-                        className="w-full text-center p-0"
-                        align="start"
-                      >
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          initialFocus
-                          className="w-full"
-                          captionLayout="dropdown-buttons"
-                          classNames={{
-                            caption_dropdowns: "text-sm space-y-1",
-                            caption_label: "hidden",
-                          }}
-                          fromYear={1950}
-                          toYear={2025}
+                  <FormItem>
+                    <FormLabel className="text-xl" htmlFor="age">
+                      Age
+                    </FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          id="age"
+                          type="number"
+                          inputMode="numeric"
+                          {...field}
+                          className="pr-20"
                         />
-                      </PopoverContent>
-                    </Popover>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="absolute top-0 right-0"
+                        >
+                          years
+                        </Button>
+                      </div>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
-              {/* height */}
               <FormField
                 control={form.control}
                 name="height"
@@ -375,18 +339,14 @@ export function SignUpForm() {
                       <div className="relative">
                         <Input
                           id="height"
-                          type="text"
+                          type="number"
                           inputMode="numeric"
-                          min={1}
-                          max={300}
                           {...field}
-                          onChange={(e) =>
-                            form.setValue("height", parseInt(e.target.value))
-                          }
+                          className="pr-20"
                         />
                         <Button
-                          variant="ghost"
                           type="button"
+                          variant="ghost"
                           className="absolute top-0 right-0"
                         >
                           cm
@@ -397,7 +357,6 @@ export function SignUpForm() {
                   </FormItem>
                 )}
               />
-              {/* weight */}
               <FormField
                 control={form.control}
                 name="weight"
@@ -410,18 +369,15 @@ export function SignUpForm() {
                       <div className="relative">
                         <Input
                           id="weight"
-                          type="text"
+                          type="number"
+                          step="0.1"
                           inputMode="numeric"
-                          min={1}
-                          max={300}
                           {...field}
-                          onChange={(e) =>
-                            form.setValue("weight", parseInt(e.target.value))
-                          }
+                          className="pr-20"
                         />
                         <Button
-                          variant="ghost"
                           type="button"
+                          variant="ghost"
                           className="absolute top-0 right-0"
                         >
                           kg
@@ -432,34 +388,27 @@ export function SignUpForm() {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="goal_weight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl" htmlFor="goalw">
+                    <FormLabel className="text-xl" htmlFor="goal_weight">
                       Goal Weight
                     </FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
-                          id="goalw"
-                          type="text"
+                          id="goal_weight"
+                          type="number"
+                          step="0.1"
                           inputMode="numeric"
-                          min={1}
-                          max={300}
                           {...field}
-                          onChange={(e) =>
-                            form.setValue(
-                              "goal_weight",
-                              parseInt(e.target.value)
-                            )
-                          }
+                          className="pr-20"
                         />
                         <Button
-                          variant="ghost"
                           type="button"
+                          variant="ghost"
                           className="absolute top-0 right-0"
                         >
                           kg

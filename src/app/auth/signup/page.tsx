@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FaSignInAlt } from "react-icons/fa";
-import { SignUpForm } from "./components/signup-form";
+import { SignUpForm } from "./_components/signup-form";
 import img from "@/assets/svg/Fitness tracker-pana.svg";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export default function SignUpPage() {
               </CardTitle>
               <CardDescription>Stay connected to the community</CardDescription>
             </CardHeader>
-            <CardContent className="min-w-[300px]">
+            <CardContent className="min-w-[350px]">
               <SignUpForm />
             </CardContent>
           </Card>
