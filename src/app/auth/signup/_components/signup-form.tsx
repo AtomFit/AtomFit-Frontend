@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUpDefaultValues, signUpFormSchema } from "@/schemas/signup-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {

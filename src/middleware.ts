@@ -19,4 +19,6 @@
 // );
 export { default } from "next-auth/middleware";
 
-export const config = { matcher: ["/dashboard/:path*", "/protectedRoutes"] };
+export const config = {
+  matcher: ["/dashboard/:path*", "/protectedRoutes"],
+};
