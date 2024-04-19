@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUpDefaultValues, signUpFormSchema } from "@/schemas/signup-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { EyeNoneIcon, EyeOpenIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -33,6 +33,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
+import { register } from "@/app/api/auth/auth";
 
 export function SignUpForm() {
   const steps = [
@@ -43,7 +44,7 @@ export function SignUpForm() {
       fields: ["goal"],
     },
     {
-      fields: ["is_male", "age", "height", "weight", "goal_weight"],
+      fields: ["is_male", "age", "height", "weight", "weight_preference"],
     },
   ];
   const [previousStep, setPreviousStep] = useState(0);
@@ -51,17 +52,21 @@ export function SignUpForm() {
   const delta = currentStep - previousStep;
   type FieldName = keyof z.infer<typeof signUpFormSchema>;
 
-  const onSubmit = (values: z.infer<typeof signUpFormSchema>) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const onSubmit = async (values: z.infer<typeof signUpFormSchema>) => {
     const body = {
       ...values,
       age: parseInt(values.age),
       height: parseInt(values.height),
       weight: parseFloat(values.weight),
-      goal_weight: parseFloat(values.goal_weight),
+      weight_preference: parseFloat(values.weight_preference),
       is_male: values.is_male === "male" ? true : false,
     };
-    console.log(body);
-    // form.reset();
+    setIsLoading(true);
+    const data = await register(body);
+    setIsLoading(false);
+    if (data.error) return;
+    form.reset();
   };
 
   const next = async () => {
@@ -390,7 +395,7 @@ export function SignUpForm() {
               />
               <FormField
                 control={form.control}
-                name="goal_weight"
+                name="weight_preference"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-xl" htmlFor="goal_weight">
@@ -443,9 +448,14 @@ export function SignUpForm() {
               <FaArrowRight />
             </Button>
             <Button
+              disabled={isLoading}
               className={cn({ hidden: currentStep !== steps.length - 1 })}
             >
-              <FaSignInAlt className="mr-2" />
+              {isLoading ? (
+                <ReloadIcon className="mr-2 size-5 animate-spin" />
+              ) : (
+                <FaSignInAlt className="mr-2" />
+              )}
               Sign Up
             </Button>
           </section>

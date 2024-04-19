@@ -26,7 +26,7 @@ export const signUpFormSchema = z
       .refine((value) => parseFloat(value) >= 10 && parseFloat(value) < 500, {
         message: "You must have a weight of 10 or above",
       }),
-    goal_weight: z
+    weight_preference: z
       .string()
       .refine((value) => parseFloat(value) >= 10 && parseFloat(value) < 300, {
         message: "You must have a weight of 10 or above",
@@ -35,11 +35,11 @@ export const signUpFormSchema = z
   .refine(
     (data) =>
       data.goal === "lose" &&
-      parseFloat(data.weight) > parseFloat(data.goal_weight),
+      parseFloat(data.weight) > parseFloat(data.weight_preference),
     {
       message:
         "You can't choose to have more kg if your goal is to lose weight",
-      path: ["goal_weight"],
+      path: ["weight_preference"],
     }
   );
 // .refine(
@@ -61,5 +61,5 @@ export const signUpDefaultValues = {
   age: "0",
   height: "0",
   weight: "0",
-  goal_weight: "0",
+  weight_preference: "0",
 };
