@@ -33,3 +33,26 @@ export const register = async (body: registerParams) => {
     return checkError(error);
   }
 };
+
+type signinParams = {
+  email: string;
+  password: string;
+};
+
+export const signin = async (body: signinParams) => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+      const errMsg = await response.json();
+      throw new Error(errMsg.detail);
+    }
+    // toast.success("You registered with success!");
+    return await response.json();
+  } catch (error) {
+    return checkError(error);
+  }
+};

@@ -21,6 +21,7 @@ import { TbSettings } from "react-icons/tb";
 import { CiUser, CiLogout } from "react-icons/ci";
 import { GoGoal } from "react-icons/go";
 import { FaUserFriends } from "react-icons/fa";
+import ThemeDropdownSub from "./_components/theme-dropdown";
 
 export default function Profile() {
   return (
@@ -73,14 +74,12 @@ export default function Profile() {
                   Settings
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>Theme</DropdownMenuItem>
-                </DropdownMenuGroup>
+                <ThemeDropdownSub />
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </header>
-        <Card>
+        <Card className="bg-popover">
           <CardHeader>
             <CardTitle className="text-5xl">Goals</CardTitle>
             <CardDescription className="text-lg">Weight 75 kg</CardDescription>
