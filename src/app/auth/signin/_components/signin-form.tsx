@@ -1,5 +1,6 @@
 "use client";
 
+import { signin } from "@/app/api/auth/auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { serverError } from "@/lib/fetchUtils";
 import { signInDefaultValues, signInFormSchema } from "@/schemas/signin-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeNoneIcon, EyeOpenIcon, ReloadIcon } from "@radix-ui/react-icons";
@@ -32,9 +34,15 @@ export function SignInForm() {
 
   const onSubmit = async (values: z.infer<typeof signInFormSchema>) => {
     setIsLoading(true);
+    const token = await signin(values);
+    if (token.error) {
+      setIsLoading(false);
+      token.error === "fetch failed"
+        ? setError(serverError)
+        : setError(token.error);
+      return setTimeout(() => setError(null), 10000);
+    }
     const res = await signIn("credentials", {
-      email: values.email,
-      password: values.password,
       redirect: false,
       callbackUrl: "/",
     });
@@ -42,7 +50,7 @@ export function SignInForm() {
 
     if (res?.error) {
       res.error === "fetch failed"
-        ? setError("The server is down at the moment please try again later")
+        ? setError(serverError)
         : setError(res.error);
       return setTimeout(() => setError(null), 10000);
     }

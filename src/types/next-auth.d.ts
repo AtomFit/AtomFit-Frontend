@@ -6,7 +6,14 @@ declare module "next-auth" {
       id: number;
       username: string;
       email: string;
-      accessToken: string;
+      is_male: boolean;
+      weight_preference: number;
+      goal: string;
+      age: number;
+      weight: number;
+      height: number;
+      is_active: boolean;
+      is_superuser: boolean;
     };
   };
 }

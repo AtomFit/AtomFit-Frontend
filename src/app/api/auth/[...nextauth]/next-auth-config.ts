@@ -6,18 +6,10 @@ export const authOption: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
+      credentials: {},
       async authorize(credentials, req) {
-        if (!credentials) return;
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-          method: "POST",
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-          }),
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
+          method: "GET",
           headers: getHeaders(),
         });
         if (!res.ok) {

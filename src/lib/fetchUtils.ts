@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 
-const serverError = "Server is down at the moment please try again later";
+export const serverError =
+  "Server is down at the moment please try again later";
 
 export const checkError = (error: unknown) => {
   if (error instanceof Error) {

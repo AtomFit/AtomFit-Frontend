@@ -50,7 +50,6 @@ export const signin = async (body: signinParams) => {
       const errMsg = await response.json();
       throw new Error(errMsg.detail);
     }
-    // toast.success("You registered with success!");
     return await response.json();
   } catch (error) {
     return checkError(error);
