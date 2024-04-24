@@ -1,5 +1,7 @@
 "use client";
 
+import { signin } from "@/app/api/auth/auth";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,15 +12,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { serverError } from "@/lib/fetchUtils";
 import { signInDefaultValues, signInFormSchema } from "@/schemas/signin-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { EyeNoneIcon, EyeOpenIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSignInAlt } from "react-icons/fa";
 import { z } from "zod";
 
 export function SignInForm() {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -26,14 +32,47 @@ export function SignInForm() {
     defaultValues: signInDefaultValues,
   });
 
-  const onSubmit = (values: z.infer<typeof signInFormSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof signInFormSchema>) => {
+    setIsLoading(true);
+    try {
+      const token = await signin(values);
+      console.log(token);
+      if (token.error) {
+        token.error === "fetch failed"
+          ? setError(serverError)
+          : setError(token.error);
+        return setTimeout(() => setError(null), 10000);
+      }
+      const res = await signIn("credentials", {
+        redirect: false,
+        callbackUrl: "/",
+      });
+
+      if (res?.error) {
+        res.error === "fetch failed"
+          ? setError(serverError)
+          : setError(res.error);
+        return setTimeout(() => setError(null), 10000);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+  // ["http://localhost:3000/", "https://atom-fit-frontend.vercel.app/"];
 
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+          {error && (
+            <Alert>
+              <AlertDescription className="text-destructive">
+                {error}
+              </AlertDescription>
+            </Alert>
+          )}
           <FormField
             control={form.control}
             name="email"
@@ -79,8 +118,12 @@ export function SignInForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full">
-            <FaSignInAlt className="mr-2" />
+          <Button className="w-full text-xl font-semibold" disabled={isLoading}>
+            {isLoading ? (
+              <ReloadIcon className="mr-2 size-6 animate-spin" />
+            ) : (
+              <FaSignInAlt className="mr-2" />
+            )}
             Sign In
           </Button>
         </form>
