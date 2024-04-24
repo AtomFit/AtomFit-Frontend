@@ -60,7 +60,6 @@ export function SignInForm() {
       setIsLoading(false);
     }
   };
-  // ["http://localhost:3000/", "https://atom-fit-frontend.vercel.app/"];
 
   return (
     <>

@@ -13,11 +13,13 @@ export const authOption: NextAuthOptions = {
           credentials: "include",
           headers: getHeaders(),
         });
+        console.log(res);
         if (!res.ok) {
           const errorMsg = await res.json();
           throw new Error(errorMsg.detail);
         }
         const data = await res.json();
+        console.log(data);
         if (!data) return null;
         return data;
       },
