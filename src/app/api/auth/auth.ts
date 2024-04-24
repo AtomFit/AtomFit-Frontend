@@ -57,19 +57,18 @@ export const signin = async (body: signinParams) => {
   }
 };
 
-export const GET = async (params: string) => {
+export const signout = async () => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${params}`,
-      {
-        method: "GET",
-        headers: getHeaders(),
-      }
-    );
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
+      method: "POST",
+      credentials: "include",
+      headers: getHeaders(),
+    });
     if (!response.ok) {
       const errMsg = await response.json();
       throw new Error(errMsg.detail);
     }
+    toast.success("You signed out with success!");
     return await response.json();
   } catch (error) {
     return checkError(error);

@@ -21,6 +21,5 @@ export const getHeaders = () => {
     "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, HEAD, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "https://brave-norene-atomfit.koyeb.app",
   };
 };
