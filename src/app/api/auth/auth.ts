@@ -43,9 +43,29 @@ export const signin = async (body: signinParams) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
       method: "POST",
+      credentials: "include",
       headers: getHeaders(),
       body: JSON.stringify(body),
     });
+    if (!response.ok) {
+      const errMsg = await response.json();
+      throw new Error(errMsg.detail);
+    }
+    return await response.json();
+  } catch (error) {
+    return checkError(error);
+  }
+};
+
+export const GET = async (params: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${params}`,
+      {
+        method: "GET",
+        headers: getHeaders(),
+      }
+    );
     if (!response.ok) {
       const errMsg = await response.json();
       throw new Error(errMsg.detail);

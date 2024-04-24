@@ -34,27 +34,33 @@ export function SignInForm() {
 
   const onSubmit = async (values: z.infer<typeof signInFormSchema>) => {
     setIsLoading(true);
-    const token = await signin(values);
-    if (token.error) {
-      setIsLoading(false);
-      token.error === "fetch failed"
-        ? setError(serverError)
-        : setError(token.error);
-      return setTimeout(() => setError(null), 10000);
-    }
-    const res = await signIn("credentials", {
-      redirect: false,
-      callbackUrl: "/",
-    });
-    setIsLoading(false);
+    try {
+      const token = await signin(values);
+      console.log(token);
+      if (token.error) {
+        token.error === "fetch failed"
+          ? setError(serverError)
+          : setError(token.error);
+        return setTimeout(() => setError(null), 10000);
+      }
+      const res = await signIn("credentials", {
+        redirect: false,
+        callbackUrl: "/",
+      });
 
-    if (res?.error) {
-      res.error === "fetch failed"
-        ? setError(serverError)
-        : setError(res.error);
-      return setTimeout(() => setError(null), 10000);
+      if (res?.error) {
+        res.error === "fetch failed"
+          ? setError(serverError)
+          : setError(res.error);
+        return setTimeout(() => setError(null), 10000);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+  // ["http://localhost:3000/", "https://atom-fit-frontend.vercel.app/"];
 
   return (
     <>
