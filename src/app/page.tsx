@@ -16,13 +16,13 @@ import { Footer } from "@/components/footer";
 export default function Home() {
   return (
     <>
-      <main className="min-h-screen relative">
-        <header className="flex justify-between container items-center py-2 px-4 z-50">
+      <main className="relative min-h-screen">
+        <header className="container z-50 flex items-center justify-between px-4 py-2">
           <div className="flex items-center">
             <Image src="/logo.png" width={100} height={100} alt="Logo" />
-            <Badge className="hidden md:block text-4xl">Atom Fit</Badge>
+            <Badge className="hidden text-4xl md:block">Atom Fit</Badge>
           </div>
-          <div className="space-x-2 hidden sm:block">
+          <div className="hidden space-x-2 sm:block">
             <Button
               variant="secondary"
               size="lg"
@@ -36,10 +36,10 @@ export default function Home() {
             </Button>
           </div>
         </header>
-        <section className="container text-xl sm:text-2xl pt-16 flex items-center">
+        <section className="container flex items-center pt-16 text-xl sm:text-2xl">
           <Card className="flex-1">
             <CardHeader>
-              <CardTitle className="flex gap-2 items-center sm:text-5xl">
+              <CardTitle className="flex items-center gap-2 sm:text-5xl">
                 <InfoCircledIcon className="size-9" /> Start Now
               </CardTitle>
             </CardHeader>
@@ -61,11 +61,11 @@ export default function Home() {
             src={statsImage}
             alt="Static Image"
             priority
-            className="hidden flex-1 md:block md:w-[50%] pointer-events-none"
+            className="pointer-events-none hidden flex-1 md:block md:w-[50%]"
           />
         </section>
       </main>
-      <section className="absolute flex flex-col gap-2 w-full px-4 bottom-2 sm:hidden">
+      <section className="absolute bottom-2 flex w-full flex-col gap-2 px-4 sm:hidden">
         <Button size="lg" className="text-2xl" asChild>
           <Link href={"/auth/signup"}>Get Started</Link>
         </Button>
