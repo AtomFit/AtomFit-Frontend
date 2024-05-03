@@ -6,33 +6,33 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FaSignInAlt } from "react-icons/fa";
-import { SignUpForm } from "./_components/signup-form";
-import img from "@/assets/svg/Fitness tracker-pana.svg";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
+import img from "@/assets/svg/Dumbbell exercise-cuate.svg";
+import { SignInForm } from "./_components/signin-form";
 
-export default function SignUpPage() {
+export default function SignInPage() {
   return (
     <>
-      <main className="min-h-screen flex items-center justify-center gap-2 p-2">
-        <section>
-          <Card className="md:min-w-[500px] mb-2 overflow-hidden">
+      <main className="flex min-h-screen items-center justify-center">
+        <section className="w-full px-4 md:w-auto">
+          <Card className="mb-2 md:min-w-[500px]">
             <CardHeader className="text-2xl">
               <CardTitle className="flex items-center gap-2">
-                <FaSignInAlt /> Sign Up
+                <FaSignInAlt /> Sign In
               </CardTitle>
               <CardDescription>Stay connected to the community</CardDescription>
             </CardHeader>
-            <CardContent className="min-w-[350px]">
-              <SignUpForm />
+            <CardContent>
+              <SignInForm />
             </CardContent>
           </Card>
-          <div className="flex justify-between">
-            <span>Already a member ?</span>
+          <div className="flex items-center justify-between">
+            <span>Don&apos;t have an account ?</span>
             <Button variant="outline" asChild>
-              <Link href={"/auth/signin"}>
-                <FaSignInAlt className="mr-2" /> Sign In
+              <Link href={"/auth/signup"}>
+                <FaSignInAlt className="mr-2" /> Sign Up
               </Link>
             </Button>
           </div>
@@ -40,7 +40,7 @@ export default function SignUpPage() {
         <Image
           src={img}
           alt="Image"
-          className="hidden lg:block lg:w-[45%] pointer-events-none"
+          className="pointer-events-none hidden lg:block lg:w-[45%]"
           priority
         />
       </main>

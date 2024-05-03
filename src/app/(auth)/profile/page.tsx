@@ -27,7 +27,7 @@ export default function Profile() {
   return (
     <>
       <main className="container space-y-4">
-        <header className="flex items-center justify-between mt-10">
+        <header className="mt-10 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Avatar className="size-20">
               <AvatarFallback>sadaw</AvatarFallback>
@@ -55,15 +55,15 @@ export default function Profile() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
-                    <CiUser className="size-5 mr-2" />
+                    <CiUser className="mr-2 size-5" />
                     Edit profile
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <GoGoal className="size-5 mr-2" />
+                    <GoGoal className="mr-2 size-5" />
                     My Goals
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <CiLogout className="size-5 mr-2" />
+                    <CiLogout className="mr-2 size-5" />
                     Log out
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
