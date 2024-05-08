@@ -168,7 +168,7 @@ export function SignUpForm() {
                           type="button"
                           variant="ghost"
                           size="icon"
-                          className="absolute top-0 right-0"
+                          className="absolute right-0 top-0"
                         >
                           {isPasswordVisible ? (
                             <EyeOpenIcon />
@@ -203,12 +203,12 @@ export function SignUpForm() {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <FormItem className="flex items-center space-x-1 space-y-0 relative">
+                        <FormItem className="relative flex items-center space-x-1 space-y-0">
                           <FormControl className="absolute inset-0">
                             <RadioGroupItem value="lose" />
                           </FormControl>
-                          <FormLabel className="flex items-center text-xl cursor-pointer w-full">
-                            <Card className="hover:bg-secondary transition-all w-full">
+                          <FormLabel className="flex w-full cursor-pointer items-center text-xl">
+                            <Card className="w-full transition-all hover:bg-secondary">
                               <CardHeader>
                                 <CardTitle>Lose Weight</CardTitle>
                                 <CardDescription>
@@ -219,12 +219,12 @@ export function SignUpForm() {
                           </FormLabel>
                         </FormItem>
 
-                        <FormItem className="flex items-center space-x-1 space-y-0 relative">
+                        <FormItem className="relative flex items-center space-x-1 space-y-0">
                           <FormControl className="absolute inset-0">
                             <RadioGroupItem value="maintain" />
                           </FormControl>
-                          <FormLabel className="flex items-center text-xl cursor-pointer w-full">
-                            <Card className="hover:bg-secondary transition-all w-full">
+                          <FormLabel className="flex w-full cursor-pointer items-center text-xl">
+                            <Card className="w-full transition-all hover:bg-secondary">
                               <CardHeader>
                                 <CardTitle>Maintain Weight</CardTitle>
                                 <CardDescription>
@@ -235,12 +235,12 @@ export function SignUpForm() {
                           </FormLabel>
                         </FormItem>
 
-                        <FormItem className="flex items-center space-x-1 space-y-0 relative">
+                        <FormItem className="relative flex items-center space-x-1 space-y-0">
                           <FormControl className="absolute inset-0">
                             <RadioGroupItem value="gain" />
                           </FormControl>
-                          <FormLabel className="flex items-center text-xl cursor-pointer w-full">
-                            <Card className="hover:bg-secondary transition-all w-full">
+                          <FormLabel className="flex w-full cursor-pointer items-center text-xl">
+                            <Card className="w-full transition-all hover:bg-secondary">
                               <CardHeader>
                                 <CardTitle>Gain Muscle</CardTitle>
                                 <CardDescription>
@@ -283,7 +283,7 @@ export function SignUpForm() {
                           <FormControl>
                             <RadioGroupItem value="male" />
                           </FormControl>
-                          <FormLabel className="flex items-center text-xl cursor-pointer">
+                          <FormLabel className="flex cursor-pointer items-center text-xl">
                             <FaMale /> Male
                           </FormLabel>
                         </FormItem>
@@ -292,7 +292,7 @@ export function SignUpForm() {
                           <FormControl>
                             <RadioGroupItem value="female" />
                           </FormControl>
-                          <FormLabel className="flex items-center text-xl cursor-pointer">
+                          <FormLabel className="flex cursor-pointer items-center text-xl">
                             <FaFemale /> Female
                           </FormLabel>
                         </FormItem>
@@ -322,7 +322,7 @@ export function SignUpForm() {
                         <Button
                           type="button"
                           variant="ghost"
-                          className="absolute top-0 right-0"
+                          className="absolute right-0 top-0"
                         >
                           years
                         </Button>
@@ -352,7 +352,7 @@ export function SignUpForm() {
                         <Button
                           type="button"
                           variant="ghost"
-                          className="absolute top-0 right-0"
+                          className="absolute right-0 top-0"
                         >
                           cm
                         </Button>
@@ -383,7 +383,7 @@ export function SignUpForm() {
                         <Button
                           type="button"
                           variant="ghost"
-                          className="absolute top-0 right-0"
+                          className="absolute right-0 top-0"
                         >
                           kg
                         </Button>
@@ -414,7 +414,7 @@ export function SignUpForm() {
                         <Button
                           type="button"
                           variant="ghost"
-                          className="absolute top-0 right-0"
+                          className="absolute right-0 top-0"
                         >
                           kg
                         </Button>
@@ -442,7 +442,7 @@ export function SignUpForm() {
               onClick={next}
               className={cn(
                 { hidden: currentStep === steps.length - 1 },
-                "ml-auto"
+                "ml-auto",
               )}
             >
               <FaArrowRight />

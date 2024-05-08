@@ -1,4 +1,3 @@
-import { Navigation } from "@/components/navigation";
 import CaloriesCounter from "./_components/calories-displayer";
 import WeightDisplayer from "./_components/weight-displayer";
 import WorkoutsDisplayer from "./_components/workouts-displayer";

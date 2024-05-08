@@ -28,12 +28,15 @@ export function DesktopNavigation() {
   const pathname = usePathname();
   return (
     <>
-      <aside className="hidden min-h-screen min-w-fit border-r px-4 md:block">
+      <aside className="hidden min-w-fit border-r px-4 md:block">
         <TooltipProvider delayDuration={1}>
           <nav className={`flex h-screen flex-col gap-2 py-4`}>
-            <h1 className="my-10 hidden text-4xl font-extrabold tracking-tight xl:block">
+            <Link
+              href={"/home"}
+              className="my-10 hidden text-4xl font-extrabold tracking-tight xl:block"
+            >
               Atom Fit
-            </h1>
+            </Link>
             {links.map((link, index) => (
               <Tooltip key={index}>
                 <TooltipTrigger>
@@ -45,17 +48,16 @@ export function DesktopNavigation() {
                   >
                     <Link href={link.path} className="flex items-center gap-1">
                       <link.icon size={32} />
-
                       <span className="hidden xl:block">{link.title}</span>
                     </Link>
                   </Button>
-                  <TooltipContent
-                    side="right"
-                    className="hidden font-semibold md:block xl:hidden"
-                  >
-                    {link.title}
-                  </TooltipContent>
                 </TooltipTrigger>
+                <TooltipContent
+                  side="right"
+                  className="hidden text-sm font-semibold md:block xl:hidden"
+                >
+                  {link.title}
+                </TooltipContent>
               </Tooltip>
             ))}
             <div className="mt-auto flex flex-col gap-2">
@@ -121,7 +123,7 @@ export function DesktopNavigation() {
                 </DropdownMenu>
                 <TooltipContent
                   side="right"
-                  className="hidden font-semibold md:block xl:hidden"
+                  className="hidden text-sm font-semibold md:block xl:hidden"
                 >
                   Settings
                 </TooltipContent>

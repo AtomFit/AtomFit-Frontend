@@ -12,27 +12,33 @@ import {
 } from "@/components/ui/card";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Footer } from "@/components/footer";
+import { FaArrowRight } from "react-icons/fa";
 
-export default function Home() {
+export default function LandingPage() {
   return (
     <>
-      <main className="relative min-h-screen">
+      <main className="relative min-h-screen pt-4">
         <header className="container z-50 flex items-center justify-between px-4 py-2">
           <div className="flex items-center">
-            <Image src="/logo.png" width={100} height={100} alt="Logo" />
-            <Badge className="hidden text-4xl md:block">Atom Fit</Badge>
+            {/* <Image src="/logo.png" width={100} height={100} alt="Logo" /> */}
+            <Badge className="hidden text-3xl font-extrabold tracking-tight md:block">
+              Atom
+            </Badge>
           </div>
           <div className="hidden space-x-2 sm:block">
             <Button
               variant="secondary"
               size="lg"
-              className="hidden sm:inline-flex sm:text-lg"
+              className="text-lg font-semibold"
               asChild
             >
               <Link href={"/auth/signin"}>Sign In</Link>
             </Button>
-            <Button size="lg" className="sm:text-lg" asChild>
-              <Link href={"/auth/signup"}>Get Started</Link>
+            <Button size="lg" className="group text-lg font-semibold" asChild>
+              <Link href={"/auth/signup"}>
+                Get Started
+                <FaArrowRight className="ml-1 transition-all group-hover:ml-2" />
+              </Link>
             </Button>
           </div>
         </header>
@@ -52,8 +58,11 @@ export default function Home() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button size="lg" className="text-lg" asChild>
-                <Link href={"/auth/signup"}>Get Started</Link>
+              <Button size="lg" className="group text-lg font-semibold" asChild>
+                <Link href={"/auth/signup"}>
+                  Get Started
+                  <FaArrowRight className="ml-1 transition-all group-hover:ml-2" />
+                </Link>
               </Button>
             </CardFooter>
           </Card>

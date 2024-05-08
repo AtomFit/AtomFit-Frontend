@@ -15,10 +15,9 @@ import {
 
 export function MobileNavigation() {
   const pathname = usePathname();
-
   return (
     <>
-      <nav className="bg-background/90 border-t fixed bottom-0 w-full flex justify-between items-center px-8 py-2 backdrop-blur md:hidden">
+      <nav className="fixed bottom-0 z-50 flex w-full items-center justify-between border-t bg-background/90 px-8 py-2 backdrop-blur md:hidden">
         <TooltipProvider delayDuration={1}>
           {links.map((link, index) => (
             <Tooltip key={index}>
@@ -26,10 +25,10 @@ export function MobileNavigation() {
                 <Button
                   variant={pathname === link.path ? "default" : "ghost"}
                   size="icon"
-                  className={`text-xl font-semibold mx-auto`}
+                  className={`mx-auto text-xl font-semibold`}
                   asChild
                 >
-                  <Link href={link.path} className="flex gap-1 items-center">
+                  <Link href={link.path} className="flex items-center gap-1">
                     <link.icon size={32} />
                   </Link>
                 </Button>
@@ -45,9 +44,9 @@ export function MobileNavigation() {
                 asChild
                 variant={pathname === "/profile" ? "default" : "ghost"}
                 size="icon"
-                className={`xl:w-full xl:justify-start mx-auto`}
+                className={`mx-auto xl:w-full xl:justify-start`}
               >
-                <Link href={"/profile"} className="flex gap-1 items-center">
+                <Link href={"/profile"} className="flex items-center gap-1">
                   <Avatar className="size-9">
                     <AvatarFallback>CS</AvatarFallback>
                   </Avatar>

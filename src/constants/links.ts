@@ -1,5 +1,7 @@
 import { IoBarbell } from "react-icons/io5";
-import { FaClipboardList, FaHome } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { FaSquarePlus } from "react-icons/fa6";
+
 import { MdExplore } from "react-icons/md";
 import { IconType } from "react-icons/lib";
 
@@ -10,14 +12,14 @@ export const links = [
     icon: FaHome,
   },
   {
-    path: "/test",
+    path: "/workout",
     title: "Workout",
     icon: IoBarbell,
   },
   {
-    path: "/test",
-    title: "Recipes",
-    icon: FaClipboardList,
+    path: "/create",
+    title: "Create",
+    icon: FaSquarePlus,
   },
   {
     path: "/test",
