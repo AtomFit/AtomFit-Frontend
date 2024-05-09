@@ -22,7 +22,7 @@ export default function CreatePage() {
       title: "Exercise",
       smallDescription: "Create an exercise for the app",
       description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis
-      dicta quia quisquam est recusandae odio, magni amet adipisci.
+      dicta quia quisquam est recusandae odio, magni amet adipisci. 
       Voluptatum corporis neque numquam harum earum provident minima ipsa
       aliquid ipsam suscipit.`,
     },
