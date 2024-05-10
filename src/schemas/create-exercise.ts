@@ -1,5 +1,4 @@
-import { link } from "fs";
-import { string, z } from "zod";
+import { z } from "zod";
 
 export const createExerciseForm = z.object({
   name: z.string(),

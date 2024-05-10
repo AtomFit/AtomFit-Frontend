@@ -1,5 +1,4 @@
 import { checkError, getHeaders } from "@/lib/fetchUtils";
-import { JWT } from "next-auth/jwt";
 import { toast } from "sonner";
 
 type registerParams = {

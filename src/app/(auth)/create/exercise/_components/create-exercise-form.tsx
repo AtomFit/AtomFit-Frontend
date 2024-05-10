@@ -29,22 +29,29 @@ import {
   createExerciseForm,
 } from "@/schemas/create-exercise";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export function CreateExerciseForm() {
-  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof createExerciseForm>>({
     resolver: zodResolver(createExerciseForm),
     defaultValues: createExerciseDefaultValues,
   });
 
   const onSubmit = (values: z.infer<typeof createExerciseForm>) => {
-    startTransition(() => {
+    setIsLoading(true);
+    try {
       console.log(values);
-    });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <>
@@ -83,6 +90,40 @@ export function CreateExerciseForm() {
                     placeholder="Type the instructions for this exercise"
                     className="text-base"
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="time"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel className="text-3xl font-semibold">Time</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="repeats" />
+                      </FormControl>
+                      <FormLabel className="text-2xl font-semibold">
+                        Repeats
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="duration" />
+                      </FormControl>
+                      <FormLabel className="text-2xl font-semibold">
+                        Duration (seconds)
+                      </FormLabel>
+                    </FormItem>
+                  </RadioGroup>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -166,15 +207,13 @@ export function CreateExerciseForm() {
               </FormItem>
             )}
           /> */}
-          <Button className="w-full text-xl font-semibold">
-            {isPending ? (
-              // <ReloadIcon className="mr-2 size-6 animate-spin" />
-              <span>loading2</span>
-            ) : (
-              // <FaSignInAlt className="mr-2" />
-              <span>loading1</span>
-            )}
-            Sign In
+          <Button
+            type="submit"
+            className="w-full text-xl font-semibold"
+            disabled={isLoading}
+          >
+            {isLoading && <ReloadIcon className="mr-2 size-6 animate-spin" />}
+            Submit
           </Button>
         </form>
       </Form>
