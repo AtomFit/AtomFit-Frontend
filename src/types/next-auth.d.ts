@@ -1,7 +1,9 @@
 import NextAuth from "next-auth/next";
+import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
-  type Session = {
+  interface Session {
+    accessToken: string | unknown;
     user: {
       id: number;
       username: string;
@@ -15,5 +17,12 @@ declare module "next-auth" {
       is_active: boolean;
       is_superuser: boolean;
     };
-  };
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    accessToken?: string;
+    expiresIn: number;
+  }
 }

@@ -1,4 +1,5 @@
 import createWorkoutBgImg from "@/assets/img/create-workout.jpg";
+import createExerciseBgImg from "@/assets/img/create-exercise.jpg";
 import { CreateCard } from "./_components/create-card";
 import Link from "next/link";
 
@@ -17,7 +18,7 @@ export default function CreatePage() {
     },
     {
       href: "/create/exercise",
-      img: createWorkoutBgImg,
+      img: createExerciseBgImg,
       altImg: "Create Exercise Background Image",
       title: "Exercise",
       smallDescription: "Create an exercise for the app",

@@ -1,4 +1,5 @@
 import { checkError, getHeaders } from "@/lib/fetchUtils";
+import { JWT } from "next-auth/jwt";
 import { toast } from "sonner";
 
 type registerParams = {
@@ -21,36 +22,13 @@ export const register = async (body: registerParams) => {
         method: "POST",
         headers: getHeaders(),
         body: JSON.stringify(body),
-      }
+      },
     );
     if (!response.ok) {
       const errMsg = await response.json();
       throw new Error(errMsg.detail);
     }
     toast.success("You registered with success!");
-    return await response.json();
-  } catch (error) {
-    return checkError(error);
-  }
-};
-
-type signinParams = {
-  email: string;
-  password: string;
-};
-
-export const signin = async (body: signinParams) => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-      method: "POST",
-      credentials: "include",
-      headers: getHeaders(),
-      body: JSON.stringify(body),
-    });
-    if (!response.ok) {
-      const errMsg = await response.json();
-      throw new Error(errMsg.detail);
-    }
     return await response.json();
   } catch (error) {
     return checkError(error);
@@ -70,6 +48,28 @@ export const signout = async () => {
     }
     toast.success("You signed out with success!");
     return await response.json();
+  } catch (error) {
+    return checkError(error);
+  }
+};
+
+export const refresh = async (token: any) => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/refresh`, {
+      method: "POST",
+      credentials: "include",
+      headers: getHeaders(),
+    });
+    if (!response.ok) {
+      const errMsg = await response.json();
+      throw new Error(errMsg.detail);
+    }
+    const data = await response.json();
+    return {
+      ...token,
+      accessToken: data.access,
+      expiresIn: Date.now() + 15 * 60 * 1000,
+    };
   } catch (error) {
     return checkError(error);
   }
