@@ -22,56 +22,58 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { CiLogout, CiUser } from "react-icons/ci";
-import ThemeDropdownSub from "@/app/profile/_components/theme-dropdown";
+import ThemeDropdownSub from "@/app/(auth)/profile/_components/theme-dropdown";
 
 export function DesktopNavigation() {
   const pathname = usePathname();
   return (
     <>
-      <aside className="border-r px-4 min-w-fit min-h-screen hidden md:block">
+      <aside className="hidden min-w-fit border-r px-4 md:block">
         <TooltipProvider delayDuration={1}>
-          <nav className={`flex flex-col gap-2 h-screen py-4`}>
-            <h1 className="text-4xl font-extrabold tracking-tight my-10 hidden xl:block">
+          <nav className={`flex h-screen flex-col gap-2 py-4`}>
+            <Link
+              href={"/home"}
+              className="my-10 hidden text-4xl font-extrabold tracking-tight xl:block"
+            >
               Atom Fit
-            </h1>
+            </Link>
             {links.map((link, index) => (
               <Tooltip key={index}>
                 <TooltipTrigger>
                   <Button
                     variant={pathname === link.path ? "default" : "ghost"}
                     size="icon"
-                    className={`text-xl font-semibold mx-auto xl:w-full xl:justify-start xl:px-4 xl:py-2`}
+                    className={`mx-auto text-xl font-semibold xl:w-full xl:justify-start xl:px-4 xl:py-2`}
                     asChild
                   >
-                    <Link href={link.path} className="flex gap-1 items-center">
+                    <Link href={link.path} className="flex items-center gap-1">
                       <link.icon size={32} />
-
                       <span className="hidden xl:block">{link.title}</span>
                     </Link>
                   </Button>
-                  <TooltipContent
-                    side="right"
-                    className="hidden font-semibold md:block xl:hidden"
-                  >
-                    {link.title}
-                  </TooltipContent>
                 </TooltipTrigger>
+                <TooltipContent
+                  side="right"
+                  className="hidden text-sm font-semibold md:block xl:hidden"
+                >
+                  {link.title}
+                </TooltipContent>
               </Tooltip>
             ))}
-            <div className="flex flex-col gap-2 mt-auto">
+            <div className="mt-auto flex flex-col gap-2">
               <Tooltip>
                 <TooltipTrigger>
                   <Button
                     asChild
                     variant={pathname === "/profile" ? "default" : "ghost"}
                     size="icon"
-                    className={`xl:w-full xl:justify-start mx-auto xl:px-4 xl:py-2`}
+                    className={`mx-auto xl:w-full xl:justify-start xl:px-4 xl:py-2`}
                   >
-                    <Link href={"/profile"} className="flex gap-1 items-center">
+                    <Link href={"/profile"} className="flex items-center gap-1">
                       <Avatar className="size-8">
                         <AvatarFallback>CS</AvatarFallback>
                       </Avatar>
-                      <span className={`xl:block hidden text-xl font-semibold`}>
+                      <span className={`hidden text-xl font-semibold xl:block`}>
                         Profile
                       </span>
                     </Link>
@@ -92,11 +94,11 @@ export function DesktopNavigation() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className={`xl:w-full xl:justify-start mx-auto space-x-1 xl:px-4 xl:py-2`}
+                        className={`mx-auto space-x-1 xl:w-full xl:justify-start xl:px-4 xl:py-2`}
                       >
                         <TbSettings size={32} />
                         <span
-                          className={`xl:block hidden text-xl font-semibold`}
+                          className={`hidden text-xl font-semibold xl:block`}
                         >
                           Settings
                         </span>
@@ -106,7 +108,7 @@ export function DesktopNavigation() {
                   <DropdownMenuContent className="w-56">
                     <DropdownMenuGroup>
                       <DropdownMenuItem>
-                        <CiUser className="size-5 mr-2" />
+                        <CiUser className="mr-2 size-5" />
                         Edit profile
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
@@ -114,14 +116,14 @@ export function DesktopNavigation() {
                     <ThemeDropdownSub />
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <CiLogout className="size-5 mr-2" />
+                      <CiLogout className="mr-2 size-5" />
                       Log out
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <TooltipContent
                   side="right"
-                  className="hidden font-semibold md:block xl:hidden"
+                  className="hidden text-sm font-semibold md:block xl:hidden"
                 >
                   Settings
                 </TooltipContent>

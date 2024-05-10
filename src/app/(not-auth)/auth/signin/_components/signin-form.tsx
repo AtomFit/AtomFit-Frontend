@@ -1,6 +1,5 @@
 "use client";
 
-import { signin } from "@/app/api/auth/auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,7 +25,6 @@ export function SignInForm() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
   const form = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: signInDefaultValues,
@@ -34,16 +32,11 @@ export function SignInForm() {
 
   const onSubmit = async (values: z.infer<typeof signInFormSchema>) => {
     setIsLoading(true);
+
     try {
-      const token = await signin(values);
-      console.log(token);
-      if (token.error) {
-        token.error === "fetch failed"
-          ? setError(serverError)
-          : setError(token.error);
-        return setTimeout(() => setError(null), 10000);
-      }
       const res = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
         redirect: false,
         callbackUrl: "/",
       });
@@ -107,7 +100,7 @@ export function SignInForm() {
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute top-0 right-0"
+                      className="absolute right-0 top-0"
                     >
                       {isPasswordVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
                     </Button>
