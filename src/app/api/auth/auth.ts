@@ -19,7 +19,7 @@ export const register = async (body: registerParams) => {
       `${process.env.NEXT_PUBLIC_API_URL}/register`,
       {
         method: "POST",
-        headers: getHeaders(),
+        headers: getHeaders,
         body: JSON.stringify(body),
       },
     );
@@ -39,7 +39,7 @@ export const signout = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
       method: "POST",
       credentials: "include",
-      headers: getHeaders(),
+      headers: getHeaders,
     });
     if (!response.ok) {
       const errMsg = await response.json();
@@ -57,7 +57,7 @@ export const refresh = async (token: any) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/refresh`, {
       method: "POST",
       credentials: "include",
-      headers: getHeaders(),
+      headers: getHeaders,
     });
     if (!response.ok) {
       const errMsg = await response.json();

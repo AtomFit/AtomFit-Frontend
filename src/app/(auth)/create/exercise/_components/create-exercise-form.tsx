@@ -7,6 +7,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Form,
@@ -35,6 +36,79 @@ import { z } from "zod";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { FaWindowClose } from "react-icons/fa";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+const items = [
+  {
+    id: "recents",
+    label: "Recents",
+  },
+  {
+    id: "home",
+    label: "Home",
+  },
+  {
+    id: "applications",
+    label: "Applications",
+  },
+  {
+    id: "desktop",
+    label: "Desktop",
+  },
+  {
+    id: "downloads",
+    label: "Downloads",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+] as const;
 
 export function CreateExerciseForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -149,64 +223,106 @@ export function CreateExerciseForm() {
               </FormItem>
             )}
           />
-          {/* <FormField
+          <FormField
             control={form.control}
             name="muscles"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Language</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn(
-                          "w-[200px] justify-between",
-                          !field.value && "text-muted-foreground",
-                        )}
-                      >
-                        {field.value
-                          ? languages.find(
-                              (language) => language.value === field.value,
-                            )?.label
-                          : "Select language"}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
-                    <Command>
-                      <CommandInput placeholder="Search language..." />
-                      <CommandEmpty>No language found.</CommandEmpty>
-                      <CommandGroup>
-                        {languages.map((language) => (
-                          <CommandItem
-                            value={language.label}
-                            key={language.value}
-                            onSelect={() => {
-                              form.setValue("language", language.value);
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                language.value === field.value
-                                  ? "opacity-100"
-                                  : "opacity-0",
-                              )}
-                            />
-                            {language.label}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
+                <FormLabel className="text-3xl font-semibold">
+                  Focus Area
+                </FormLabel>
+                <div className="flex flex-wrap items-center">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "w-[200px] justify-between",
+                            field.value.length < 1 && "text-muted-foreground",
+                          )}
+                        >
+                          {field.value.length > 0
+                            ? `${field.value.length} selected`
+                            : "Focus Area"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    {field.value.length > 0 && (
+                      <TooltipProvider delayDuration={500}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="mx-1"
+                              onClick={() => form.resetField("muscles")}
+                            >
+                              <FaWindowClose size={24} />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent className="text-sm font-semibold">
+                            Clear All
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search area..." />
+                        <CommandEmpty>No muscle found.</CommandEmpty>
+                        <CommandList>
+                          <CommandGroup>
+                            {items.map((item, index) => (
+                              <Label key={index}>
+                                <CommandItem className="flex items-center gap-1">
+                                  <Checkbox
+                                    checked={field.value.includes(item.id)}
+                                    onCheckedChange={(checked) => {
+                                      return checked
+                                        ? field.onChange([
+                                            ...field.value,
+                                            item.id,
+                                          ])
+                                        : field.onChange(
+                                            field.value?.filter(
+                                              (value) => value !== item.id,
+                                            ),
+                                          );
+                                    }}
+                                  />
+                                  {item.label}
+                                </CommandItem>
+                              </Label>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  {field.value.length > 0 && (
+                    <div className="flex flex-wrap gap-1 rounded border border-dashed p-1">
+                      {field.value.map((muscleId, index) => {
+                        const current = items.find(
+                          (item) => item.id === muscleId,
+                        );
+                        return (
+                          <Badge key={index} className="text-sm">
+                            <span>{current?.label}</span>
+                          </Badge>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
           <Button
             type="submit"
             className="w-full text-xl font-semibold"
