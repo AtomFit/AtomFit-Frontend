@@ -22,7 +22,7 @@ export const links = [
     icon: FaSquarePlus,
   },
   {
-    path: "/test",
+    path: "/explore",
     title: "Explore",
     icon: MdExplore,
   },

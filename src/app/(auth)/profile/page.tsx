@@ -9,13 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 import { FaUserFriends } from "react-icons/fa";
 
 export default function Profile() {
   return (
     <>
-      <main className="container space-y-4">
-        <header className="mt-10 flex items-center justify-between">
+      <main className="container my-4 space-y-4">
+        <header className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Avatar className="size-20">
               <AvatarFallback>sadaw</AvatarFallback>
@@ -26,8 +27,10 @@ export default function Profile() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon">
-              <FaUserFriends className="size-6" />
+            <Button variant="ghost" size="icon" asChild>
+              <Link href={"/friends"}>
+                <FaUserFriends className="size-6" />
+              </Link>
             </Button>
             <SettingsDropdownMenu />
           </div>
