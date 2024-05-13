@@ -1,4 +1,6 @@
 import { checkError, getHeaders } from "@/lib/fetchUtils";
+import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 type registerParams = {
@@ -45,7 +47,7 @@ export const signout = async () => {
       const errMsg = await response.json();
       throw new Error(errMsg.detail);
     }
-    toast.success("You signed out with success!");
+    await signOut();
     return await response.json();
   } catch (error) {
     return checkError(error);
