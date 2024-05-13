@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { TbSettings } from "react-icons/tb";
 import { links } from "@/constants/links";
 
 import {
@@ -13,22 +12,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { CiLogout, CiUser } from "react-icons/ci";
-import ThemeDropdownSub from "@/app/(auth)/profile/_components/theme-dropdown";
 
 export function DesktopNavigation() {
   const pathname = usePathname();
   return (
     <>
-      <aside className="hidden min-w-fit border-r px-4 md:block">
+      <aside className="sticky top-0 hidden h-screen min-w-fit border-r px-4 md:block">
         <TooltipProvider delayDuration={1}>
           <nav className={`flex h-screen flex-col gap-2 py-4`}>
             <Link
@@ -84,48 +73,6 @@ export function DesktopNavigation() {
                   className="hidden font-semibold md:block xl:hidden"
                 >
                   Profile
-                </TooltipContent>
-              </Tooltip>
-
-              <Tooltip>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className={`mx-auto space-x-1 xl:w-full xl:justify-start xl:px-4 xl:py-2`}
-                      >
-                        <TbSettings size={32} />
-                        <span
-                          className={`hidden text-xl font-semibold xl:block`}
-                        >
-                          Settings
-                        </span>
-                      </Button>
-                    </TooltipTrigger>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem>
-                        <CiUser className="mr-2 size-5" />
-                        Edit profile
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup>
-
-                    <ThemeDropdownSub />
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <CiLogout className="mr-2 size-5" />
-                      Log out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <TooltipContent
-                  side="right"
-                  className="hidden text-sm font-semibold md:block xl:hidden"
-                >
-                  Settings
                 </TooltipContent>
               </Tooltip>
             </div>

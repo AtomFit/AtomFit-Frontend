@@ -1,3 +1,4 @@
+import { SettingsDropdownMenu } from "@/components/settings-dropdown";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,26 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { TbSettings } from "react-icons/tb";
-import { CiUser, CiLogout } from "react-icons/ci";
-import { GoGoal } from "react-icons/go";
+import Link from "next/link";
 import { FaUserFriends } from "react-icons/fa";
-import ThemeDropdownSub from "./_components/theme-dropdown";
 
 export default function Profile() {
   return (
     <>
-      <main className="container space-y-4">
-        <header className="mt-10 flex items-center justify-between">
+      <main className="container my-4 space-y-4">
+        <header className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Avatar className="size-20">
               <AvatarFallback>sadaw</AvatarFallback>
@@ -38,45 +27,12 @@ export default function Profile() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon">
-              <FaUserFriends className="size-6" />
+            <Button variant="ghost" size="icon" asChild>
+              <Link href={"/friends"}>
+                <FaUserFriends className="size-6" />
+              </Link>
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="icon" variant="ghost">
-                  <TbSettings className="size-7" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel className="flex items-center gap-2">
-                  <CiUser className="size-5" />
-                  My Account
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>
-                    <CiUser className="mr-2 size-5" />
-                    Edit profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <GoGoal className="mr-2 size-5" />
-                    My Goals
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <CiLogout className="mr-2 size-5" />
-                    Log out
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-
-                <DropdownMenuLabel className="flex items-center gap-2">
-                  <TbSettings className="size-5" />
-                  Settings
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <ThemeDropdownSub />
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SettingsDropdownMenu />
           </div>
         </header>
         <Card className="bg-popover">

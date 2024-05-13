@@ -5,7 +5,9 @@ export const createExerciseForm = z.object({
   instructions: z.string(),
   link: z.string().url(),
   time: z.enum(["repeats", "duration"]),
-  // muscles: z.string().array(),
+  muscles: z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "You have to select at least one item.",
+  }),
 });
 
 export const createExerciseDefaultValues = {
@@ -13,5 +15,5 @@ export const createExerciseDefaultValues = {
   instructions: "",
   link: "",
   time: undefined,
-  // muscles: [],
+  muscles: [],
 };

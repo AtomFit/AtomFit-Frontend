@@ -23,7 +23,7 @@ export const authOption: NextAuthOptions = {
           {
             method: "POST",
             credentials: "include",
-            headers: getHeaders(),
+            headers: getHeaders,
             body: JSON.stringify({ email, password }),
           },
         );
@@ -61,7 +61,7 @@ export const authOption: NextAuthOptions = {
           {
             method: "GET",
             credentials: "include",
-            headers: getHeaders(),
+            headers: getHeaders,
           },
         );
         if (!userResponse.ok) {

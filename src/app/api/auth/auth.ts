@@ -1,4 +1,6 @@
 import { checkError, getHeaders } from "@/lib/fetchUtils";
+import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 type registerParams = {
@@ -19,7 +21,7 @@ export const register = async (body: registerParams) => {
       `${process.env.NEXT_PUBLIC_API_URL}/register`,
       {
         method: "POST",
-        headers: getHeaders(),
+        headers: getHeaders,
         body: JSON.stringify(body),
       },
     );
@@ -39,13 +41,13 @@ export const signout = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
       method: "POST",
       credentials: "include",
-      headers: getHeaders(),
+      headers: getHeaders,
     });
     if (!response.ok) {
       const errMsg = await response.json();
       throw new Error(errMsg.detail);
     }
-    toast.success("You signed out with success!");
+    await signOut();
     return await response.json();
   } catch (error) {
     return checkError(error);
@@ -57,7 +59,7 @@ export const refresh = async (token: any) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/refresh`, {
       method: "POST",
       credentials: "include",
-      headers: getHeaders(),
+      headers: getHeaders,
     });
     if (!response.ok) {
       const errMsg = await response.json();

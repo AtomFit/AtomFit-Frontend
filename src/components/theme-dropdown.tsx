@@ -33,14 +33,14 @@ export default function ThemeDropdownSub() {
                 onClick={() => setTheme("light")}
                 onSelect={(e) => e.preventDefault()}
               >
-                <SunIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
+                <SunIcon className="mr-2 h-[1.2rem] w-[1.2rem]" />
                 Light
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("dark")}
                 onSelect={(e) => e.preventDefault()}
               >
-                <MoonIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
+                <MoonIcon className="mr-2 h-[1.2rem] w-[1.2rem]" />
                 Dark
               </DropdownMenuItem>
             </DropdownMenuSubContent>
