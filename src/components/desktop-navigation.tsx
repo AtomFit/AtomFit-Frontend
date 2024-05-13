@@ -17,7 +17,7 @@ export function DesktopNavigation() {
   const pathname = usePathname();
   return (
     <>
-      <aside className="hidden min-w-fit border-r px-4 md:block">
+      <aside className="sticky top-0 hidden h-screen min-w-fit border-r px-4 md:block">
         <TooltipProvider delayDuration={1}>
           <nav className={`flex h-screen flex-col gap-2 py-4`}>
             <Link
