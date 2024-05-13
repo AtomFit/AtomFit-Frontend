@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { WorkoutCard } from "./_components/workout-card";
 
 export default function WorkoutPage() {
   return (
@@ -18,7 +19,14 @@ export default function WorkoutPage() {
               </TabsTrigger>
             </TabsList>
           </header>
-          <TabsContent value="saved">Saved Workouts</TabsContent>
+          <TabsContent value="saved" className="flex flex-wrap gap-2">
+            <WorkoutCard />
+            <WorkoutCard />
+            <WorkoutCard />
+            <WorkoutCard />
+            <WorkoutCard />
+            <WorkoutCard />
+          </TabsContent>
           <TabsContent value="mine">Mine</TabsContent>
         </Tabs>
       </main>
