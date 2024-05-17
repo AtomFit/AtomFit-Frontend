@@ -2,86 +2,95 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import statsImage from "@/assets/svg/Fitness-stats-bro.svg";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Footer } from "@/components/footer";
 import { FaArrowRight } from "react-icons/fa";
+import { LandingPageCarousel } from "@/components/landing-page-carousel";
 
 export default function LandingPage() {
   return (
     <>
-      <main className="relative min-h-screen pt-4">
-        <header className="container z-50 flex items-center justify-between px-4 py-2">
-          <div className="flex items-center">
-            {/* <Image src="/logo.png" width={100} height={100} alt="Logo" /> */}
-            <Badge className="hidden text-3xl font-extrabold tracking-tight md:block">
-              Atom
+      <header className="z-50 flex w-full items-center justify-between px-16 py-4 md:fixed">
+        <Badge className="flex w-full justify-center text-xl font-extrabold tracking-tight md:w-auto">
+          ATOM
+        </Badge>
+
+        <div className="hidden items-center gap-1 md:flex">
+          <Button
+            asChild
+            size="sm"
+            variant="ghost"
+            className="text-xl font-semibold tracking-tight"
+          >
+            <Link href={"/auth/signin"}>Sign In</Link>
+          </Button>
+          <Button
+            asChild
+            size="sm"
+            className="text-xl font-extrabold tracking-tight"
+          >
+            <Link href={"/auth/signup"}>
+              JOIN NOW <FaArrowRight className="ml-1" />
+            </Link>
+          </Button>
+        </div>
+      </header>
+      <main className="mx-1 mt-10 flex min-h-screen flex-col sm:container sm:mx-0 md:mx-auto md:mt-0 md:flex-row md:items-center">
+        <div className="space-y-1 text-xl md:max-w-[250px] lg:max-w-none lg:flex-1">
+          <div className="text-center sm:text-left">
+            <Badge
+              variant="secondary"
+              className="mr-1 cursor-default text-xl font-extrabold tracking-tight lg:text-3xl"
+            >
+              TRAIN LIKE
+            </Badge>
+            <Badge className="group relative cursor-default text-xl font-extrabold tracking-tight lg:text-3xl">
+              CHAMPIONS
+              <Image
+                src={"/assets/img/crown.png"}
+                alt="Crown"
+                width={64}
+                height={64}
+                className="absolute -right-7 -top-[3.2rem] size-auto rotate-12 scale-95 select-none transition-all group-hover:scale-100 group-hover:drop-shadow-2xl"
+              />
             </Badge>
           </div>
-          <div className="hidden space-x-2 sm:block">
+          <p className="text-base lg:text-xl">
+            ChampionFit offers personalized workout plans, expert guidance, and
+            motivational tools to help you reach your peak performance. Whether
+            you&apos;re a
+            <span className="mx-1 rounded-md bg-primary px-2 py-1 font-semibold">
+              beginner
+            </span>
+            or a seasoned athlete, ChampionFit provides tailored programs,
+            real-time progress tracking, and a supportive
+            <span className="mx-1 rounded-md bg-primary px-2 py-1 font-semibold">
+              community
+            </span>
+            to ensure you achieve your fitness goals with the dedication and
+            intensity of a true champion.
+          </p>
+          <div className="flex gap-1 md:block">
             <Button
-              variant="secondary"
-              size="lg"
-              className="text-lg font-semibold"
               asChild
+              variant="ghost"
+              className="flex-1 text-xl font-semibold tracking-tight md:hidden"
             >
               <Link href={"/auth/signin"}>Sign In</Link>
             </Button>
-            <Button size="lg" className="group text-lg font-semibold" asChild>
+            <Button
+              asChild
+              className="flex-1 text-xl font-extrabold tracking-tight lg:text-3xl"
+            >
               <Link href={"/auth/signup"}>
-                Get Started
-                <FaArrowRight className="ml-1 transition-all group-hover:ml-2" />
+                JOIN NOW <FaArrowRight className="ml-1" />
               </Link>
             </Button>
           </div>
-        </header>
-        <section className="container flex items-center pt-16 text-xl sm:text-2xl">
-          <Card className="flex-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 sm:text-5xl">
-                <InfoCircledIcon className="size-9" /> Start Now
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Recusandae debitis ipsum placeat quaerat saepe at ducimus facere
-                ab quasi. Accusantium, dolorum? Maxime sapiente aspernatur
-                inventore dicta aliquid minima dolorum doloremque?
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button size="lg" className="group text-lg font-semibold" asChild>
-                <Link href={"/auth/signup"}>
-                  Get Started
-                  <FaArrowRight className="ml-1 transition-all group-hover:ml-2" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-          <Image
-            src={statsImage}
-            alt="Static Image"
-            priority
-            className="pointer-events-none hidden flex-1 md:block md:w-[50%]"
-          />
-        </section>
+        </div>
+        <div className="lg:flex-1">
+          <LandingPageCarousel />
+        </div>
       </main>
-      <section className="absolute bottom-2 flex w-full flex-col gap-2 px-4 sm:hidden">
-        <Button size="lg" className="text-2xl" asChild>
-          <Link href={"/auth/signup"}>Get Started</Link>
-        </Button>
-        <Button variant="secondary" size="lg" className="text-2xl" asChild>
-          <Link href={"/auth/signin"}>Sign In</Link>
-        </Button>
-      </section>
       <Footer />
     </>
   );

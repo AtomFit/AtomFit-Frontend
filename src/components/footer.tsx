@@ -11,8 +11,8 @@ export function Footer() {
   const size = 32;
   return (
     <>
-      <footer className="py-6">
-        <ul className="flex flex-wrap justify-center gap-8">
+      <footer className="py-4">
+        <ul className="flex flex-wrap justify-center gap-4">
           <li className="flex items-center gap-2">
             <SiTailwindcss size={size} />
             <p className="text-sm font-normal">Tailwind CSS</p>
