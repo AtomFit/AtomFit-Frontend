@@ -70,11 +70,15 @@ export function SignInForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xl">Email</FormLabel>
+                <FormLabel className="text-3xl font-semibold">Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="example@example.com" {...field} />
+                  <Input
+                    {...field}
+                    placeholder="example@example.com"
+                    className="text-base"
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-sm" />
               </FormItem>
             )}
           />
@@ -83,17 +87,20 @@ export function SignInForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="password" className="text-xl">
+                <FormLabel
+                  htmlFor="password"
+                  className="text-3xl font-semibold"
+                >
                   Password
                 </FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
+                      {...field}
                       id="password"
                       placeholder="********"
-                      {...field}
                       type={isPasswordVisible ? "text" : "password"}
-                      className="pr-10"
+                      className="pr-10 text-base"
                     />
                     <Button
                       onClick={() => setIsPasswordVisible(!isPasswordVisible)}
@@ -106,7 +113,7 @@ export function SignInForm() {
                     </Button>
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-sm" />
               </FormItem>
             )}
           />

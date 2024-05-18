@@ -9,6 +9,11 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useRef, useState } from "react";
 import { FaRegCircle, FaRegDotCircle } from "react-icons/fa";
+import lebron from "../../public/assets/img/lebron.jpg";
+import lebron2 from "../../public/assets/img/lebron2.jpg";
+import mcgregor from "../../public/assets/img/mcgregor.jpg";
+import tyson from "../../public/assets/img/tyson.jpg";
+import hagi from "../../public/assets/img/hagi.jpg";
 
 export function LandingPageCarousel() {
   const [api, setApi] = useState<CarouselApi>();
@@ -30,23 +35,23 @@ export function LandingPageCarousel() {
 
   const images = [
     {
-      src: "/assets/img/lebron.jpg",
+      src: lebron,
       alt: "Lebron James Image",
     },
     {
-      src: "/assets/img/lebron2.jpg",
+      src: lebron2,
       alt: "Lebron James Image 2",
     },
     {
-      src: "/assets/img/mcgregor.jpg",
+      src: mcgregor,
       alt: "Connor McGregor Image",
     },
     {
-      src: "/assets/img/tyson.jpg",
+      src: tyson,
       alt: "Mike Tyson Image",
     },
     {
-      src: "/assets/img/hagi.jpg",
+      src: hagi,
       alt: "Gheorghe Hagi Image",
     },
   ];
@@ -78,7 +83,7 @@ export function LandingPageCarousel() {
           ))}
         </CarouselContent>
         <div className="pointer-events-none absolute bottom-6 flex w-full select-none justify-center gap-1 opacity-50">
-          {Array.from({ length: count }).map((element, index) => {
+          {Array.from({ length: count }).map((_, index) => {
             if (index + 1 === current) return <FaRegDotCircle key={index} />;
             return <FaRegCircle key={index} />;
           })}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Footer } from "@/components/footer";
 import { FaArrowRight } from "react-icons/fa";
 import { LandingPageCarousel } from "@/components/landing-page-carousel";
+import crown from "../../public/assets/img/crown.png";
 
 export default function LandingPage() {
   return (
@@ -46,7 +47,7 @@ export default function LandingPage() {
             <Badge className="group relative cursor-default text-xl font-extrabold tracking-tight lg:text-3xl">
               CHAMPIONS
               <Image
-                src={"/assets/img/crown.png"}
+                src={crown}
                 alt="Crown"
                 width={64}
                 height={64}
