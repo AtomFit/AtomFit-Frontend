@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSignInAlt } from "react-icons/fa";
 import { z } from "zod";
+import { IoIosAlert } from "react-icons/io";
 
 export function SignInForm() {
   const [error, setError] = useState<string | null>(null);
@@ -60,8 +61,9 @@ export function SignInForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           {error && (
             <Alert>
-              <AlertDescription className="text-destructive">
-                {error}
+              <AlertDescription className="flex items-center gap-1 text-base font-semibold text-destructive">
+                <IoIosAlert size={32} />
+                <p>{error}</p>
               </AlertDescription>
             </Alert>
           )}

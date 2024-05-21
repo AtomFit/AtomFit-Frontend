@@ -15,7 +15,7 @@ export default function SignInPage() {
           <Header />
         </section>
         <section className="flex h-screen flex-1 items-center justify-center">
-          <div className="space-y-2 lg:min-w-[450px]">
+          <div className="max-w-[50%] space-y-2 lg:min-w-[450px]">
             <SignInForm />
             <div className="flex items-center justify-between text-base">
               <p>Don&apos;t have an account? </p>
