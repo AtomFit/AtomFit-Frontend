@@ -44,18 +44,20 @@ export const authOption: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      // console.log("token", token);
-      // console.log("user", user);
       // access | refresh | expires_in = 15 min
-      if (!user) return null;
-      token.expiresIn = Date.now() + 15 * 60 * 1000;
+      if (user) {
+        token.refreshToken = user.refresh;
+        token.accessToken = user.access;
+        token.expiresIn = Date.now() + 15 * 60 * 1000;
+      }
 
-      if (Date.now() < token.expiresIn) return { ...token, ...user };
+      if (Date.now() < token.expiresIn) return token;
       return await refresh(token);
     },
-    async session({ session, token, user }) {
-      session.accessToken = token.access;
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
       if (session?.accessToken ?? false) {
+        console.log("Testam asta");
         const userResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/users/me`,
           {
@@ -64,16 +66,13 @@ export const authOption: NextAuthOptions = {
             headers: getHeaders,
           },
         );
-        if (!userResponse.ok) {
-          const errorMsg = await userResponse.json();
-          throw new Error(errorMsg.detail);
+        console.log(userResponse);
+        if (userResponse.ok) {
+          session.user = await userResponse.json();
         }
-        session.user = await userResponse.json();
-        return session;
       }
-      console.log("session", session);
-      console.log("token", token);
-      console.log("user", user);
+      console.log(session);
+
       return session;
     },
   },

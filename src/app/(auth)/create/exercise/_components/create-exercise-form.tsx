@@ -8,6 +8,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
+  CommandDialog,
 } from "@/components/ui/command";
 import {
   Form,
@@ -46,6 +48,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { FaCirclePlus } from "react-icons/fa6";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const items = [
   {
@@ -112,6 +123,7 @@ const items = [
 
 export function CreateExerciseForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof createExerciseForm>>({
     resolver: zodResolver(createExerciseForm),
     defaultValues: createExerciseDefaultValues,
@@ -303,6 +315,46 @@ export function CreateExerciseForm() {
                       </Command>
                     </PopoverContent>
                   </Popover>
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => setOpen(true)}
+                  >
+                    <FaCirclePlus size={32} />
+                  </Button>
+
+                  <CommandDialog open={open} onOpenChange={setOpen}>
+                    <DialogTrigger></DialogTrigger>
+                    <CommandInput placeholder="Type a command or search..." />
+                    <CommandList>
+                      <CommandEmpty>No results found.</CommandEmpty>
+                      <CommandGroup heading="Suggestions">
+                        <CommandItem>
+                          <span>Calendar</span>
+                        </CommandItem>
+                        <CommandItem>
+                          <span>Search Emoji</span>
+                        </CommandItem>
+                        <CommandItem>
+                          <span>Launch</span>
+                        </CommandItem>
+                      </CommandGroup>
+                      <CommandSeparator />
+                      <CommandGroup heading="Settings">
+                        <CommandItem>
+                          <span>Profile</span>
+                        </CommandItem>
+                        <CommandItem>
+                          <span>Mail</span>
+                        </CommandItem>
+                        <CommandItem>
+                          <span>Settings</span>
+                        </CommandItem>
+                      </CommandGroup>
+                    </CommandList>
+                  </CommandDialog>
+
                   {field.value.length > 0 && (
                     <div className="flex flex-wrap gap-1 rounded border border-dashed p-1">
                       {field.value.map((muscleId, index) => {

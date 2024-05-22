@@ -18,11 +18,16 @@ declare module "next-auth" {
       is_superuser: boolean;
     };
   }
+  interface User {
+    access: string;
+    refresh: string;
+    expiresIn: number;
+  }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    accessToken?: string;
+    accessToken: string | unknown;
     expiresIn: number;
   }
 }

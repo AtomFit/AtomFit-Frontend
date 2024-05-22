@@ -55,6 +55,7 @@ export const signout = async () => {
 };
 
 export const refresh = async (token: any) => {
+  console.log("refresh");
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/refresh`, {
       method: "POST",

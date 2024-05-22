@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FaSignInAlt } from "react-icons/fa";
-import img from "@/assets/svg/Fitness tracker-pana.svg";
+import img from "@/../public/assets/svg/Fitness tracker-pana.svg";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

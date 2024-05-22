@@ -1,5 +1,5 @@
-import createWorkoutBgImg from "@/assets/img/create-workout.jpg";
-import createExerciseBgImg from "@/assets/img/create-exercise.jpg";
+import createWorkoutBgImg from "@/../public/assets/img/create-workout.jpg";
+import createExerciseBgImg from "@/../public/assets/img/create-exercise.jpg";
 import { CreateCard } from "./_components/create-card";
 import Link from "next/link";
 
